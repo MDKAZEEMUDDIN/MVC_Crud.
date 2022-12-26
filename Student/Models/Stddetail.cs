@@ -15,6 +15,5 @@ namespace Student.Models
         public string? email { get; set; }
         [Required]
         public string? city { get; set; }
-
     }
 }

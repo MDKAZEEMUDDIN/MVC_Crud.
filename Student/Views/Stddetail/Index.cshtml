@@ -15,11 +15,7 @@
     </div>
     <br /><br />
 
-
-@*<h1>Index Stddetail</h1>*@
-
-<table class="table table-bordered table-striped" style="width:100%">
-    
+<table class="table table-bordered table-striped" style="width:100%">   
     <thead>
         <tr>
             <th>
@@ -34,6 +30,7 @@
             <th>
                 city
             </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -51,6 +48,14 @@
                 </td>
                 <td width="30%">
                     @obj.city
+                </td>
+                <td>
+                        <div class="w-75 btn-group" role="group">
+                            <a asp-controller="Stddetail" asp-action="Edit" asp-route-id="@obj.Id"
+                            class="btn btn-primary  mx-2"><i class="bi bi-pencil-square"></i>Edit</a>
+                            <a asp-controller="Stddetail" asp-action="Delete" asp-route-id="@obj.Id"
+                           class="btn btn-danger  mx-2"><i class="bi bi-trash-fill"></i>Delete</a>
+                        </div>                   
                 </td>
             </tr>
         }

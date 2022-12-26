@@ -38,32 +38,66 @@ namespace Student.Controllers
             }
             return View(obj);
         }
-        //////Get
-        ////public IActionResult Edit(int? id)
-        ////{
-        ////    if (id == null || id == 0)
-        ////    {
-        ////        return NotFound();
-        ////    }
-        ////    var stddetailFromDb = _dbContext.Stddetails.Find(id);
-        ////    var stddetailFromDbFirst = _dbContext.Stddetails.FirstOrDefault(u => u.Id == id);
 
-        ////    return View();
-        ////}
+        //Get
+        public IActionResult Edit(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var stddetailFromDb = _dbContext.Stddetails.Find(id);
+            if(stddetailFromDb == null)
+            {
+                return NotFound();
+            }
+            return View(stddetailFromDb);
+        }
 
-        ////Get
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult (Stddetail obj)
-        //{
-        //    //To check the model is valid or not
-        //    if (ModelState.IsValid)
-        //    {
-        //        _dbContext.Stddetails.Add(obj);
-        //        _dbContext.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(obj);
-        //}
+        //POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(Stddetail obj)
+        {
+            //To check the model is valid or not
+            if (ModelState.IsValid)
+            {
+                _dbContext.Stddetails.Update(obj);
+                _dbContext.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(obj);
+        }
+
+        //Get
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var stddetailFromDb = _dbContext.Stddetails.Find(id);
+            if (stddetailFromDb == null)
+            {
+                return NotFound();
+            }
+            return View(stddetailFromDb);
+        }
+
+        //POST
+        [HttpPost,ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeletePOST(int? id)
+        {
+            //To check the model is valid or not
+            var obj = _dbContext.Stddetails.Find(id);
+            if(obj == null)
+            {
+                return NotFound();
+            }
+                _dbContext.Stddetails.Remove(obj);
+                _dbContext.SaveChanges();
+                return RedirectToAction("Index");  
+        }
     }
 }
