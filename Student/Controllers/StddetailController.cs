@@ -29,13 +29,14 @@ namespace Student.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Stddetail obj)
         {
-            //To check the model is valid or not
-            if (ModelState.IsValid)
-            {
-                _dbContext.Stddetails.Add(obj);
-                _dbContext.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            //To check the model is valid or not  
+                if (ModelState.IsValid && obj.phonenum.Length == 10)
+                {
+                    _dbContext.Stddetails.Add(obj);
+                    _dbContext.SaveChanges();
+                    TempData["success"] = "Stddetail created successfully";
+                    return RedirectToAction("Index");
+                }   
             return View(obj);
         }
 
@@ -60,10 +61,11 @@ namespace Student.Controllers
         public IActionResult Edit(Stddetail obj)
         {
             //To check the model is valid or not
-            if (ModelState.IsValid)
+            if (ModelState.IsValid )
             {
                 _dbContext.Stddetails.Update(obj);
                 _dbContext.SaveChanges();
+                TempData["success"] = "Stddetail Update successfully";
                 return RedirectToAction("Index");
             }
             return View(obj);
@@ -97,7 +99,8 @@ namespace Student.Controllers
             }
                 _dbContext.Stddetails.Remove(obj);
                 _dbContext.SaveChanges();
-                return RedirectToAction("Index");  
+            TempData["success"] = "Stddetail delete successfully";
+            return RedirectToAction("Index");  
         }
     }
 }
